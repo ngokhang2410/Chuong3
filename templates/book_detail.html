@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title|e }} - Chi tiết{% endblock %}
+
+{% block content %}
+    <p><a href="{{ url_for('books_list') }}">← Quay lại danh sách sách</a></p>
+    <hr>
+    <h2>{{ book.title|e }}</h2>
+    <p><b>Mã sách (ID):</b> {{ book.id|e }}</p>
+    <p><b>Tác giả:</b> {{ book.author|e }}</p>
+    <p><b>Năm xuất bản:</b> {{ book.year|e }}</p>
+    <p><b>Thể loại:</b> {{ book.category|e }}</p>
+    <p><b>Trạng thái:</b> 
+        {% if book.available %}
+            <span class="badge badge-success">Sẵn sàng cho mượn</span>
+        {% else %}
+            <span class="badge badge-danger">Đã được mượn</span>
+        {% endif %}
+    </p>
+{% endblock %}

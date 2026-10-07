@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Danh Sách Sách - LibraryMS{% endblock %}
+
+{% block content %}
+    <h2>Danh Sách Sách</h2>
+
+    <!-- Thanh liên kết lọc theo thể loại -->
+    <div class="filter-bar">
+        <b>Lọc theo thể loại:</b>
+        <a href="{{ url_for('books_list') }}" class="{% if not selected_category %}active{% endif %}">Tất cả</a>
+        {% for cat in categories %}
+            <a href="{{ url_for('books_list', category=cat) }}" class="{% if selected_category == cat %}active{% endif %}">
+                {{ cat|e }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Bảng danh sách sách -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên sách</th>
+                <th>Tác giả</th>
+                <th>Năm XB</th>
+                <th>Thể loại</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.id|e }}</td>
+                <td>
+                    <a href="{{ url_for('book_detail', book_id=book.id) }}">
+                        <b>{{ book.title|e }}</b>
+                    </a>
+                </td>
+                <td>{{ book.author|e }}</td>
+                <td>{{ book.year|e }}</td>
+                <td>{{ book.category|e }}</td>
+                <td>
+                    {% if book.available %}
+                        <span class="badge badge-success">Sẵn sàng</span>
+                    {% else %}
+                        <span class="badge badge-danger">Đã mượn</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" style="text-align: center;">Không tìm thấy cuốn sách nào thuộc thể loại này.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

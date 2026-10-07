@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Không tìm thấy{% endblock %}
+
+{% block content %}
+    <div style="text-align: center; padding: 40px 0;">
+        <h1 style="font-size: 60px; color: #e53e3e; margin: 0;">404</h1>
+        <h2>Rất tiếc! Trang bạn tìm kiếm không tồn tại.</h2>
+        <p style="color: #666; font-size: 18px;">{{ message|e }}</p>
+        <br>
+        <a href="{{ url_for('index') }}" style="background: #3182ce; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Trở về Trang chủ</a>
+    </div>
+{% endblock %}
