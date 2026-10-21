@@ -1,0 +1,22 @@
+{% extends "base1.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Thực đơn - Trang {{ page }}{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4 text-center text-primary fw-bold">Thực Đơn Quán</h2>
+
+    <!-- Hiển thị danh sách thẻ món -->
+    <div class="row">
+        {% if menu %}
+            {% for item in menu %}
+                {{ macros.item_card(item) }}
+            {% endfor %}
+        {% else %}
+            <p class="text-center text-muted">Chưa có món nào.</p>
+        {% endif %}
+    </div>
+
+    <!-- Gọi macro phân trang -->
+    {{ macros.pagination(page, total_pages, 'show_menu') }}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base1.html" %}
+
+{% block title %}Trang chủ{% endblock %}
+
+{% block content %}
+    <div class="card shadow-sm mb-4 mx-auto" style="max-width: 600px;">
+        <div class="card-body text-center p-4">
+            <h1 class="card-title text-primary fw-bold mb-3">{{ shop.name }}</h1>
+            <p class="card-text text-muted mb-1">📍 Địa chỉ: {{ shop.address }}</p>
+            <p class="card-text text-muted mb-3">⏰ Giờ mở cửa: {{ shop.open }}h00 - {{ shop.close }}h00</p>
+            <hr>
+            <div class="fs-5 fw-semibold">
+                Bây giờ là <span class="badge bg-secondary">{{ current_hour }}h</span>: 
+                {% if is_open %}
+                    <span class="text-success fw-bold">quán đang mở cửa.</span>
+                {% else %}
+                    <span class="text-danger fw-bold">quán đã đóng cửa.</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-header bg-warning text-dark fw-bold text-center">
+            🎉 Chương Trình Khuyến Mãi
+        </div>
+        <div class="card-body p-0">
+            {% if promotions %}
+                <ul class="list-group list-group-flush">
+                    {% for item in promotions %}
+                        <li class="list-group-item">🎁 {{ item }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="p-3 text-center text-muted mb-0">Hiện chưa có khuyến mại.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

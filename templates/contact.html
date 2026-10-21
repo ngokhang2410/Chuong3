@@ -1,0 +1,13 @@
+{% extends "base1.html" %}
+
+{% block title %}Liên hệ{% endblock %}
+
+{% block content %}
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-body text-center p-4">
+            <h3 class="card-title text-primary fw-bold mb-3">Thông Tin Liên Hệ</h3>
+            <p class="fs-5 mb-2">📞 Điện thoại: <strong>{{ shop.phone }}</strong></p>
+            <p class="text-muted">📍 Địa chỉ: {{ shop.address }}</p>
+        </div>
+    </div>
+{% endblock %}
