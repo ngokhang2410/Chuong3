@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2. Tính Điểm Học Phần</title>
+    <!-- Nhúng Bootstrap 5 CSS qua CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light min-vh-100 d-flex align-items-center justify-content-center py-4">
+
+    <div class="container" style="max-width: 480px;">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center text-primary fw-bold mb-4">Tính Điểm Học Phần</h3>
+
+                <form action="" method="POST" novalidate>
+                    <!-- Điểm Chuyên cần CC (10%) -->
+                    <div class="mb-3">
+                        <label for="cc" class="form-label fw-semibold text-secondary">Điểm Chuyên Cần - CC (10%)</label>
+                        <input type="text" 
+                               id="cc" 
+                               name="cc" 
+                               class="form-control {% if err_cc %}is-invalid{% endif %}" 
+                               value="{{ cc }}" 
+                               placeholder="Nhập từ 0 đến 10" 
+                               autocomplete="off">
+                        {% if err_cc %}
+                            <div class="invalid-feedback">
+                                {{ err_cc }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Điểm Giữa kỳ GK (30%) -->
+                    <div class="mb-3">
+                        <label for="gk" class="form-label fw-semibold text-secondary">Điểm Giữa Kỳ - GK (30%)</label>
+                        <input type="text" 
+                               id="gk" 
+                               name="gk" 
+                               class="form-control {% if err_gk %}is-invalid{% endif %}" 
+                               value="{{ gk }}" 
+                               placeholder="Nhập từ 0 đến 10" 
+                               autocomplete="off">
+                        {% if err_gk %}
+                            <div class="invalid-feedback">
+                                {{ err_gk }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Điểm Cuối kỳ CK (60%) -->
+                    <div class="mb-3">
+                        <label for="ck" class="form-label fw-semibold text-secondary">Điểm Cuối Kỳ - CK (60%)</label>
+                        <input type="text" 
+                               id="ck" 
+                               name="ck" 
+                               class="form-control {% if err_ck %}is-invalid{% endif %}" 
+                               value="{{ ck }}" 
+                               placeholder="Nhập từ 0 đến 10" 
+                               autocomplete="off">
+                        {% if err_ck %}
+                            <div class="invalid-feedback">
+                                {{ err_ck }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Nút tính toán -->
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg fs-6 fw-bold">Tính điểm học phần</button>
+                    </div>
+                </form>
+
+                <!-- Hiển thị Kết quả -->
+                {% if result %}
+                    <div class="alert alert-success text-center fw-bold fs-5 mt-4 mb-0" role="alert">
+                        Kết quả: {{ result }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Nhúng Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1. Máy Tính Cơ Bản</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #f8fafc;
+        }
+
+        .form-control:focus {
+            border-color: #3b82f6;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        select.form-control {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%20475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            color: #166534;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .global-error {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            color: #991b1b;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator-card">
+        <h2 class="title">Máy Tính Cơ Bản</h2>
+
+        <form action="" method="POST">
+            <!-- Số thứ nhất a -->
+            <div class="form-group">
+                <label for="a">Số thứ nhất (a)</label>
+                <input type="text" id="a" name="a" class="form-control" value="{{ a }}" placeholder="Ví dụ: 5 hoặc 2,5" autocomplete="off">
+                {% if err_a %}
+                    <div class="error-message">
+                        ⚠️ {{ err_a }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Phép toán op -->
+            <div class="form-group">
+                <label for="op">Phép toán (op)</label>
+                <select id="op" name="op" class="form-control">
+                    <option value="+" {% if op == '+' %}selected{% endif %}>Cộng (+)</option>
+                    <option value="-" {% if op == '-' %}selected{% endif %}>Trừ (-)</option>
+                    <option value="*" {% if op == '*' %}selected{% endif %}>Nhân (*)</option>
+                    <option value="/" {% if op == '/' %}selected{% endif %}>Chia (/)</option>
+                </select>
+            </div>
+
+            <!-- Số thứ hai b -->
+            <div class="form-group">
+                <label for="b">Số thứ hai (b)</label>
+                <input type="text" id="b" name="b" class="form-control" value="{{ b }}" placeholder="Ví dụ: 3 hoặc 12.5" autocomplete="off">
+                {% if err_b %}
+                    <div class="error-message">
+                        ⚠️ {{ err_b }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn-submit">Tính kết quả</button>
+        </form>
+
+        <!-- Hiển thị Kết quả hoặc Lỗi tổng quát -->
+        {% if result %}
+            {% if "Phép toán không hợp lệ" in result %}
+                <div class="global-error">
+                    ⚠️ {{ result }}
+                </div>
+            {% else %}
+                <div class="result-box">
+                    Kết quả: {{ result }}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+</body>
+</html>

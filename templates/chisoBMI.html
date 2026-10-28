@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3. Tính Chỉ Số BMI</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light min-vh-100 d-flex align-items-center justify-content-center py-4">
+
+    <div class="container" style="max-width: 480px;">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center text-primary fw-bold mb-4">Tính Chỉ Số BMI</h3>
+
+                <form action="" method="POST" novalidate>
+                    <!-- Ô nhập Chiều cao (cm) -->
+                    <div class="mb-3">
+                        <label for="cao" class="form-label fw-semibold text-secondary">Chiều cao (cm)</label>
+                        <input type="text" 
+                               id="cao" 
+                               name="cao" 
+                               class="form-control {% if err_cao %}is-invalid{% endif %}" 
+                               value="{{ cao }}" 
+                               placeholder="Ví dụ: 170 hoặc 168.5" 
+                               autocomplete="off">
+                        {% if err_cao %}
+                            <div class="invalid-feedback">
+                                {{ err_cao }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Ô nhập Cân nặng (kg) -->
+                    <div class="mb-3">
+                        <label for="nang" class="form-label fw-semibold text-secondary">Cân nặng (kg)</label>
+                        <input type="text" 
+                               id="nang" 
+                               name="nang" 
+                               class="form-control {% if err_nang %}is-invalid{% endif %}" 
+                               value="{{ nang }}" 
+                               placeholder="Ví dụ: 65 hoặc 65,5" 
+                               autocomplete="off">
+                        {% if err_nang %}
+                            <div class="invalid-feedback">
+                                {{ err_nang }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Nút tính toán -->
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg fs-6 fw-bold">Tính BMI</button>
+                    </div>
+                </form>
+
+                <!-- Hiển thị Kết quả -->
+                {% if result %}
+                    <div class="alert alert-{{ result.color }} text-center mt-4 mb-0 rounded-3 shadow-sm" role="alert">
+                        <div class="fs-4 fw-bold">
+                            {{ result.bmi }} - <span class="text-uppercase">{{ result.category }}</span>
+                        </div>
+                        <div class="fs-6 mt-2 text-dark">
+                            Cân nặng nên có: <strong>{{ result.min_w }} – {{ result.max_w }} kg</strong>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
